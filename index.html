@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <!-- <form id="form">
+        <input id="name" placeholder="enter name"/>
+        <button type="submit" id="button1" onclick="submit()">submit</button>
+    </form> -->
+    <div class="container">
+        <form id="form">
+          <h2>Login!</h2>
+          <h3>Lets Chat Here..</h3>
+          <input type="text" placeholder="Enter your name" id="name">
+          <button type="submit" id="button1" onclick="submit()">Submit</button>
+        </form>
+      </div>
+    <script>
+        const form = document.getElementById('form');
+        const name = document.getElementById('name');
+        
+        form.addEventListener('submit',function(e){
+            e.preventDefault();
+            const v = name.value;
+            localStorage.setItem('v',v);
+            window.location.href = 'interface/ux.html'
+            
+        }
+        ) 
+        
+    </script>
+
+</body>
+</html>
