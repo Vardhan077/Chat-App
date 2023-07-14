@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat App</title>
+  <link rel="stylesheet" type="text/css" href="ux.css">
+</head>
+<body>
+  <div class="container">
+    <div class="chat-container">
+      <div class="chat-header">
+        <h2>Chat App</h2>
+      </div>
+      
+      <div class="chat-messages" id="chat">
+        
+      </div>
+    </div>      
+      <div class="chat-input">
+        <input type="text" id="input" placeholder="Type your message">
+        <button id="button" onclick="sendMsg()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script > 
+    const ws = new WebSocket('ws://localhost:6969')
+    // const divEl = document.getElementById('div');
+    const message = document.getElementById('message');
+
+    const inputEl = document.getElementById('input');
+    const name = document.getElementById('name');
+    const a = document.getElementById('a');
+    const b = document.getElementById('b');
+    const a1 = document.getElementById('a1');
+    const b1 = document.getElementById('b1');
+    const v = localStorage.getItem('v') ;
+    const sender = document.getElementById('sender')
+    const content = document.getElementById('content')
+
+    ws.addEventListener("open",()=>{
+        // divEl.innerText = "we r connected";
+    })
+    ws.onmessage = function(event){
+        const l = JSON.parse(event.data);
+        const data = l.txt;
+        const name = l.v;
+        x(l.txt,l.v);
+        // y(l.txt,l.v);
+    }
+    function x (data,name){
+      if(v === name){
+        const sender = document.createElement('div');
+        const content = document.createElement('div');
+        const message = document.createElement('div');
+        const b = document.createElement('div');
+        const a = document.createElement('div');
+        
+        const chat = document.getElementById('chat');
+        sender.innerText = name;
+        content.innerText = data ;
+        b.className = 'b';
+        a.className = 'a';
+        message.className = 'message';
+        a.appendChild(sender);
+        b.appendChild(content);
+        message.appendChild(a);
+        message.appendChild(b);
+        chat.appendChild(message);
+        
+      }
+      else{
+        const sender = document.createElement('div');
+        const content = document.createElement('div');
+        const message1 = document.createElement('div');
+        const b1 = document.createElement('div');
+        const a1 = document.createElement('div');
+        
+        const chat = document.getElementById('chat');
+        sender.innerText = name;
+        content.innerText = data ;
+        b1.className = 'b1';
+        a1.className = 'a1';
+        message1.className = 'message1';
+        a1.appendChild(sender);
+        b1.appendChild(content);
+        message1.appendChild(a1);
+        message1.appendChild(b1);
+        chat.appendChild(message1);
+        
+      }
+        
+    }
+   
+
+    function sendMsg(){
+        const txt = inputEl.value;
+        ws.send(JSON.stringify({
+          'v':v,
+          'txt':txt
+        }));
+        // x(txt,v);
+        
+    }
+    
+    
+     
+</script>
+</body>
+</html>
